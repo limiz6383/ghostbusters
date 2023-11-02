@@ -107,7 +107,28 @@ def joinFactors(factors: List[Factor]):
     varDict = {}
 
     for factor in factors:
-        unconditioned.
+        for k in factor.variableDomainsDict().keys():
+            if k not in varDict:
+                varDict[k] = factor.variableDomainsDict()[k]
+        temp_unconditioned = factor.unconditionedVariables()
+        temp_conditioned = factor.conditionedVariables()
+        for i in temp_unconditioned:
+            if i not in unconditioned:
+                unconditioned.add(i)
+        for i in temp_conditioned:
+            if i not in conditioned:
+                conditioned.add(i)
+    final_conditioned = [i for i in conditioned if i not in unconditioned]
+    new_fact = Factor(list(unconditioned), final_conditioned, varDict)
+    assignments = new_fact.getAllPossibleAssignmentDicts()
+    for a in assignments:
+        p = 1
+        for factor in factors:
+            p *= factor.getProbability(a)
+        new_fact.setProbability(a, p)
+    return new_fact
+        
+
     "*** END YOUR CODE HERE ***"
 
 ########### ########### ###########
