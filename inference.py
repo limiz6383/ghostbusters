@@ -459,13 +459,15 @@ class InferenceModule:
         Return the probability P(noisyDistance | pacmanPosition, ghostPosition).
         """
         "*** YOUR CODE HERE ***"
-        print("pac ", pacmanPosition)
-        print("ghostPosition ", ghostPosition)
+        if noisyDistance is None:
+            if ghostPosition == jailPosition:
+                return 1.0
+            else:
+                return 0.0
+        if ghostPosition == jailPosition:
+            return 0.0
+
         trueDist = manhattanDistance(pacmanPosition, ghostPosition)
-        if self.obs == None: 
-            trueDist = manhattanDistance(pacmanPosition, (0,0))
-        print("noisy ", noisyDistance)
-        print("true ", trueDist)
         return busters.getObservationProbability(noisyDistance, trueDist)
         "*** END YOUR CODE HERE ***"
 
