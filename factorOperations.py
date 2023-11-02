@@ -102,7 +102,12 @@ def joinFactors(factors: List[Factor]):
 
 
     "*** YOUR CODE HERE ***"
-    raiseNotDefined()
+    unconditioned = set()
+    conditioned = set()
+    varDict = {}
+
+    for factor in factors:
+        unconditioned.
     "*** END YOUR CODE HERE ***"
 
 ########### ########### ###########
